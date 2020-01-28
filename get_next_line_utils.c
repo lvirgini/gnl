@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 17:05:57 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/01/28 13:44:20 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:57:54 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ unsigned int	ft_strchr_i(const char *s, int c)
 }
 
 /*
-** Joint deux chaine de caractere dans une nouvelle chaine.
-** un max est ajoute pour convenir a la fin de lecture de GNL.
+** Joint deux chaines de caractere dans une nouvelle chaine.
+** variante gnl : free la chaine s1, qui est toujours malloc
+** dans gnl.
 */
 
-char			*ft_strjoin(char const *s1, char const *s2)
+char			*ft_strjoin_s1_free(char *s1, char const *s2)
 {
 	int		len;
 	int		i;
@@ -73,7 +74,6 @@ char			*ft_strjoin(char const *s1, char const *s2)
 		len++;
 	while (s2[i++] || (i = 0) != 0)
 		len++;
-	printf("wait = %p\n", s1);
 	if (!(dest = malloc(sizeof(*dest) * (len + 1))))
 		return (NULL);
 	while (s1[i] || (i = 0) != 0)
@@ -81,5 +81,6 @@ char			*ft_strjoin(char const *s1, char const *s2)
 	while (s2[i])
 		dest[j++] = s2[i++];
 	dest[j] = '\0';
+	free(s1);
 	return (dest);
 }

@@ -16,11 +16,13 @@ int main()
 	int fd;
 	int fd2;
 	int fd3;
+	int fd4;
 	
 	fd = open("txt1", O_RDONLY);
 	fd2 = open("txt2", O_RDONLY);
 	fd3 = open("txt3", O_RDONLY);
-	
+	fd4 = open("txt4", O_RDONLY);
+
 	if (fd == -1)
 		return (0);
 	if (fd2 == -1)
@@ -34,42 +36,38 @@ int main()
 	int j = 0;
 
 	/*************    fichier txt standard   ******************/
-	i = get_next_line(fd, &line);
-
+/*
+	i = 1;
 	while ((i > 0))
 	{
 		i = get_next_line(fd, &line);
 		printf("line %d = %s\n", i, line);
 		j++;
-		while (1)
-		;
 		free(line);
 	}
-	
-	
-	/*while (1)
-	;
 */
-	/******************   fichier vide    **********************/
-	
-/*	j = 0;
-	i = get_next_line(fd2, &line);
-	printf("line %d = |%s|\n", j, line);
-	free(line);
-*/	
 
+	/******************   fichier vide    **********************/
+
+/*	i = 1;
+	while (i > 0)
+	{
+		i = get_next_line(fd2, &line);
+		printf("line %d = |%s|\n", i, line);
+		free(line);
+	}
+*/
 
 	/** fichier avec 1 grande ligne sans retour a la ligne. ****/
-/*	j = 0;
-	while ((i = get_next_line(fd3, &line)))
+	i = 1;
+	while (i > 0)
 	{
+		i = get_next_line(fd3, &line);
 		printf("line %d = %s\n", i, line);
-		j++;
 		free(line);
 	}
 	printf("line %d = |%s|\n", i, line);
-	free(line);
-*/
+
 /*** Partie Bonus ***/  //nope
 
 /*
@@ -86,12 +84,15 @@ int main()
 
 
 
-	i = BUFFER_SIZE;
+/*	i = BUFFER_SIZE;
 	printf("BUFFER_SIZE = %d\n", i);
-
+*/
 	close(fd);
 	close(fd2);
 	close(fd3);
+	close (fd4);
+	while (1)
+		;
 	return (0);	
 }
 

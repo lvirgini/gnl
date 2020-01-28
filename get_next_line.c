@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:30:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/01/28 13:43:29 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:58:33 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** Verifie si GNL n'a jamais ete appelee : malloc de *next;
-** sinon verifie s'il y a une ligne dans le *next.
+** sinon verifie s'il y a un (\n) dans le *next.
 */
 
 char	*ft_if_wait(char *wait, int *end)
@@ -23,7 +23,6 @@ char	*ft_if_wait(char *wait, int *end)
 	{
 		if (!(wait = malloc(sizeof((*wait) * BUFFER_SIZE))))
 			return (NULL);
-		printf("wait malloc = %p\n", wait);
 		*end = 0;
 	}
 	else
@@ -83,9 +82,8 @@ int		get_next_line(int fd, char **line)
 		if ((len = read(fd, buf, BUFFER_SIZE)) <= 0)
 			return (ft_stop_read(len, wait, line, buf));
 		buf[len] = '\0';
-		if (!(wait = ft_strjoin(wait, buf)))
+		if (!(wait = ft_strjoin_s1_free(wait, buf)))
 			return (ft_stop_read(-1, wait, line, buf));
-		printf("wait malloc = %p\n", wait);
 		end = ft_strchr_i(wait, '\n');
 	}
 	wait[end] = '\0';

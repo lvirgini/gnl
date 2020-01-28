@@ -1,0 +1,42 @@
+
+
+fd1 OK 1
+fd1 OK 2
+fd1 OK 3
+fd1 OK 4
+fd1 OK 5 
+
+fd1 OK  6
+fd1 OK  7
+fd1 OK  8 
+fd1 OKOKOKOKOKOKOKOKOKOKOKOK 9
+fd1 OKOKOKOKOKOKOKOKOKOKOKOK 10
+fd1 OKOKOKOKOKOKOKOKOKOKOKOK 11
+
+
+
+
+static struct next = NULL;
+buf[bufsize]
+if (!next)
+	malloc
+
+
+tant aue pas d e \n
+	read buf
+	line = strjoin lines buf
+
+aund y en a un
+	remplace le \n par \0
+	line = strjoin line buf
+	next = srdup buf + strlen
+
+read
+
+
+struct
+	char *next
+	int fd
+	t_list *next
+
+clear 	quand EOF tu remontes la liste tu relink apres supprime

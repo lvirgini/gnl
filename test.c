@@ -33,16 +33,14 @@ int main()
 
 /*** Partie obligatoire ***/	
 
-	int j = 0;
 
 	/*************    fichier txt standard   ******************/
-/*
-	i = 1;
-	while ((i > 0))
+
+/*	i = 1;
+	while (i > 0)
 	{
 		i = get_next_line(fd, &line);
-		printf("line %d = %s\n", i, line);
-		j++;
+		printf("line %d = |%s|\n", i, line);
 		free(line);
 	}
 */
@@ -52,7 +50,11 @@ int main()
 /*	i = 1;
 	while (i > 0)
 	{
-		i = get_next_line(fd2, &line);
+		if ((i = get_next_line(fd2, &line)) < 0)
+		{
+			printf("line %d = |%s|\n", i, line);
+			break;
+		}
 		printf("line %d = |%s|\n", i, line);
 		free(line);
 	}
@@ -62,11 +64,15 @@ int main()
 	i = 1;
 	while (i > 0)
 	{
-		i = get_next_line(fd3, &line);
-		printf("line %d = %s\n", i, line);
+		if ((i = get_next_line(fd3, &line)) < 0)
+		{
+			printf("line %d = |%s|\n", i, line);
+			break;
+		}
+		printf("line %d = |%s|\n", i, line);
 		free(line);
 	}
-	printf("line %d = |%s|\n", i, line);
+
 
 /*** Partie Bonus ***/  //nope
 
@@ -91,6 +97,7 @@ int main()
 	close(fd2);
 	close(fd3);
 	close (fd4);
+	printf("boucle infinie :\n");
 	while (1)
 		;
 	return (0);	

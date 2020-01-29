@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:30:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/01/29 13:34:55 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:55:04 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int		get_next_line(int fd, char **line)
 	|| (!(wait = ft_if_wait(wait, &end)))
 	|| (!(buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1)))))
 		return (-1);
+	if (*line)
+		free(*line);
 	while (end == 0 && wait[0] != '\n')
 	{
 		if ((len = read(fd, buf, BUFFER_SIZE)) <= 0)

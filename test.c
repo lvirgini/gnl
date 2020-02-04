@@ -18,7 +18,7 @@ int main()
 	int fd3;
 	int fd4;
 	
-	fd = open("txt1", O_RDONLY);
+	fd = open("empty_line", O_RDONLY);
 	fd2 = open("txt2", O_RDONLY);
 	fd3 = open("txt3", O_RDONLY);
 	fd4 = open("txt4", O_RDONLY);
@@ -36,14 +36,14 @@ int main()
 
 	/*************    fichier txt standard   ******************/
 
-/*	i = 1;
+	i = 1;
 	while (i > 0)
 	{
 		i = get_next_line(fd, &line);
 		printf("line %d = |%s|\n", i, line);
 		free(line);
 	}
-*/
+
 
 	/******************   fichier vide    **********************/
 
@@ -61,7 +61,7 @@ int main()
 */
 
 	/** fichier avec 1 grande ligne sans retour a la ligne. ****/
-	i = 1;
+/*	i = 1;
 	while (i > 0)
 	{
 		if ((i = get_next_line(fd3, &line)) < 0)
@@ -72,7 +72,7 @@ int main()
 		printf("line %d = |%s|\n", i, line);
 		free(line);
 	}
-
+*/
 
 /*** Partie Bonus ***/  //nope
 

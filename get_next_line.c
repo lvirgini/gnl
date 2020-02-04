@@ -6,10 +6,11 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:30:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/01/29 17:55:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:12:03 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "get_next_line.h"
 
 /*
@@ -66,19 +67,19 @@ int		ft_stop_read(int len, char *wait, char **line, char *buf)
 ** tant que '\n' n a pas ete trouve, on lit.
 */
 
+
 int		get_next_line(int fd, char **line)
 {
-	static char		*wait;
+	static char		*wait = NULL;
 	char			*buf;
 	int				end;
 	int				len;
 
 	if (BUFFER_SIZE <= 0 || line == NULL || fd < 0
+	|| (len = read(fd, wait, 0) == -1)
 	|| (!(wait = ft_if_wait(wait, &end)))
 	|| (!(buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1)))))
 		return (-1);
-	if (*line)
-		free(*line);
 	while (end == 0 && wait[0] != '\n')
 	{
 		if ((len = read(fd, buf, BUFFER_SIZE)) <= 0)

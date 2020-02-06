@@ -6,11 +6,10 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:30:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/04 14:33:17 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/06 16:13:24 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> //
 #include "get_next_line.h"
 
 /*
@@ -39,7 +38,7 @@ char	*ft_next_wait(char *before, int end)
 {
 	char *tmp;
 
-	tmp = ft_strdup(&before[end + 1]);
+	tmp = ft_strdup(before + end + 1);
 	free(before);
 	return (tmp);
 }
@@ -51,22 +50,23 @@ char	*ft_next_wait(char *before, int end)
 
 int		ft_stop_read(int len, char *wait, char **line, char *buf)
 {
+	if (buf)
 	free(buf);
 	if (wait && len != -1)
 	{
 		*line = ft_strdup(wait);
-		wait[0] = '\0';
+		wait[0] = '\0'; // peut etre inutile
 	}
+	if (wait) // a verif
+		free(wait);
 	if (len == -1)
 		return (-1);
-	free(wait);
 	return (0);
 }
 
 /*
 ** tant que '\n' n a pas ete trouve, on lit.
 */
-
 
 int		get_next_line(int fd, char **line)
 {
@@ -76,10 +76,10 @@ int		get_next_line(int fd, char **line)
 	int				len;
 
 	if (BUFFER_SIZE <= 0 || line == NULL || fd < 0
-	|| (len = read(fd, wait, 0) == -1)
-	|| (!(wait = ft_if_wait(wait, &end)))
-	|| (!(buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1)))))
+	|| (read(fd, wait, 0) == -1) || (!(wait = ft_if_wait(wait, &end))))
 		return (-1);
+	if (!(buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1))))
+		return (-1); // free wait
 	while (end == 0 && wait[0] != '\n')
 	{
 		if ((len = read(fd, buf, BUFFER_SIZE)) <= 0)

@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:30:25 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/06 16:13:24 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/08 20:31:41 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ char	*ft_next_wait(char *before, int end)
 int		ft_stop_read(int len, char *wait, char **line, char *buf)
 {
 	if (buf)
-	free(buf);
+		free(buf);
 	if (wait && len != -1)
 	{
 		*line = ft_strdup(wait);
 		wait[0] = '\0'; // peut etre inutile
 	}
-	if (wait) // a verif
+	if (wait)
 		free(wait);
 	if (len == -1)
 		return (-1);
@@ -79,7 +79,7 @@ int		get_next_line(int fd, char **line)
 	|| (read(fd, wait, 0) == -1) || (!(wait = ft_if_wait(wait, &end))))
 		return (-1);
 	if (!(buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1))))
-		return (-1); // free wait
+		return (ft_stop_read(-1, wait, line, buf));
 	while (end == 0 && wait[0] != '\n')
 	{
 		if ((len = read(fd, buf, BUFFER_SIZE)) <= 0)

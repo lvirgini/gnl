@@ -5,13 +5,14 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include "get_next_line.h"
+//static const char __func__[] = "function-name";
 
 #include <stdio.h>
 
 int main()
 {
 
-	char *line;
+	char *line = NULL;
 	int i;
 	int fd;
 	int fd2;
@@ -63,7 +64,6 @@ else
 		if ((i = get_next_line(fd2, &line)) < 0)
 		{
 			printf("line %d = |%s|\n", i, line);
-			break;
 		}
 		printf("line %d = |%s|\n", i, line);
 		free(line);
@@ -121,6 +121,8 @@ else
 	close(fd2);
 	close(fd3);
 	close (fd4);
+//	printf("%s calling free\n", free);
+//	printf("%s calling free\n", malloc);
 	// printf("boucle infinie :\n");
 	// while (1)
 	// 	;

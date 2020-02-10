@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 13:15:09 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/09 18:52:05 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/10 16:59:07 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int main()
 	while ((i = get_next_line(fd, &line)) > 0)
 	{
 		printf("line %d = |%s|\n", i, line);
+		free(line);
 	}
 	
 	

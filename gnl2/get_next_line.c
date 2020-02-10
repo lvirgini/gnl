@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:28:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/09 18:53:02 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/10 23:18:35 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,56 @@
 
 int		get_next_line(int fd, char **line)
 {
-	static char		buf[BUFFER_SIZE];
+	static char		buf[BUFFER_SIZE + 1];
 	int				end_of_line;
-	size_t 			len;
+	int 			len;
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || (read(fd, buf, 0) == -1))
 		return(-1);
-	end_of_line = ft_strchr_len(buf, '\n');
-	while (end_of_line == 0 && buf[0] != '\n')
+	len = 0;
+	while ((end_of_line = ft_strchr_len(buf, '\n')) < 0)
 	{
-		if ((len = read(fd, buf, BUFFER_SIZE)) < 1)
-			return(stop_read());
-		if ((end_of_line = ft_strchr_len(buf, '\n')) != 0)
-		{
-			*line = ft_strjoin_max_free_s1(*line, buf, end_of_line);
-			ft_strlcpy(buf, buf + end_of_line, BUFFER_SIZE);
-			stop_read();
-		}	
-		else
-		{
-			*line = ft_strjoin_max_free_s1(*line, buf, len);
-		}	
+		if ((copy_buf_in_line(line, buf, end_of_line, len) == -1)
+		|| ((len = read(fd, buf, BUFFER_SIZE)) <= 0))
+			return(stop_read(line, buf, end_of_line, len));
 	}
-	if (buf[0] == '\n')
-		*line = ft_strjoin_max_free_s1(*line, buf, 1);
-	return (1);
+	return (stop_read(line, buf, end_of_line, len));
 }
 
 /*
 **
 */
 
-int		stop_read(void)
+int		stop_read(char **line, char *buf, int end_of_line, int len)
 {
+	if  (len == -1)
+	{
+		if (*line)
+		{
+			free (*line);
+			*line == NULL;
+		}
+		return (-1);
+	}
+	if ((copy_buf_in_line(line, buf, end_of_line, len)) != 0)
+		return (stop_read(line, buf, end_of_line, -1));
 	return(0);
+}
+
+/*
+**
+*/
+
+int		copy_buf_in_line(char **line, char *buf, int end_of_line, int len)
+{
+	if (buf[0] == 0)
+		*line = ft_strjoin_max_free_s1(*line, buf, 0);
+	else if (len == 0)
+		*line = ft_strjoin_max_free_s1(*line, buf, end_of_line);
+	else
+		*line = ft_strjoin_max_free_s1(*line, buf, len);
+	if (*line == NULL)
+		return (-1);
+	buf = ft_strncpy(buf, buf + end_of_line, BUFFER_SIZE);
+	return (0);
 }

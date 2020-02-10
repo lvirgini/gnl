@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 17:05:57 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/09 18:57:50 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/10 16:21:40 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,19 @@ char			*ft_strdup_buffer_size(const char *s, size_t len)
 ** Copie src dans dst au plus size octets. protège dst en la finissant par \0.
 */
 
-size_t		ft_strlcpy(char *dst, const char *src, size_t size)
+char	*ft_strncpy(char *dst, char *src, size_t n)
 {
-	unsigned int i;
-	unsigned int src_len;
+	size_t		i;
 
-	if (!src)
-		return (0);
-	src_len = 0;
 	i = 0;
-	while (src[src_len])
-		++src_len;
-	if (size-- > 0)
+	while (src[i] != '\0' && i < n)
 	{
-		while (size-- && i < (src_len) && src[i])
-		{
-			dst[i] = src[i];
-			++i;
-		}
-		dst[i] = '\0';
+		dst[i] = src[i];
+		i++;
 	}
-	return (src_len);
+	while (i < n)
+		dst[i++] = '\0';
+	return (dst);
 }
 
 /*
@@ -64,7 +56,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t size)
 ** 	Renvoie un pointeur sur la première occurence.
 */
 
-unsigned int	ft_strchr_len(const char *s, int c)
+int		ft_strchr_len(const char *s, int c)
 {
 	unsigned int i;
 
@@ -75,7 +67,7 @@ unsigned int	ft_strchr_len(const char *s, int c)
 			return (i);
 		++i;
 	}
-	return (0);
+	return (-1);
 }
 
 /*

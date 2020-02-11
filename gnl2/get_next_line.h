@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 13:11:27 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/10 16:20:29 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/11 13:51:27 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char		*ft_strjoin_max_free_s1(char *s1, char const *s2, size_t s2_len);
 int			copy_buf_in_line(char **line, char *buf, int end_of_line, int len);
 int			stop_read(char **line, char *buf, int end_of_line, int len);
 char		*ft_strncpy(char *dst, char *src, size_t n);
+size_t		ft_strlen(const char *s);
 
 #endif
 

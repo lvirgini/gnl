@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 18:19:48 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/06 13:26:56 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/11 09:56:47 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int				get_next_line(int fd, char **line);
 char			*ft_strjoin_s1_free(char *s1, char const *s2);
 unsigned int	ft_strchr_i(const char *s, int c);
 char			*ft_strdup(const char *s);
+char			*ft_strncpy(char *dst, char *src, size_t n)
 
 #endif
 

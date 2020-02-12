@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:28:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/12 18:15:52 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:13:03 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,13 @@ int		stop_read(char **line, char *buf, int end_of_line, int len)
 	}
 	else
 	{
+		if (buf[0] == '\0')
+			return (0);
 		if ((end_of_line = ft_strchr_len(buf, '\n')) >= 0 || ft_strlen(buf) > 0)
 		{
 			copy_buf_in_line(line, buf, end_of_line, len);
+			if (buf[0] == '\0' && end_of_line == -1)
+				return (0);
 			return (1);
 		}
 		free(*line);

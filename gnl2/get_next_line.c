@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:28:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/12 18:09:12 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:15:52 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@
 
 int		get_next_line(int fd, char **line)
 {
-	static char		buf[BUFF_SIZE + 1];
+	static char		buf[BUFFER_SIZE + 1];
 	int				end_of_line;
 	int				len;
 
-	if (fd < 0 || !line || BUFF_SIZE < 1 || (read(fd, buf, 0) == -1))
+	if (fd < 0 || !line || BUFFER_SIZE < 1 || (read(fd, buf, 0) == -1))
 		return (-1);
 	len = 0;
 	*line = ft_strjoin_max_free_s1(NULL, buf, 0);
 	while ((end_of_line = ft_strchr_len(buf, '\n')) < 0)
 	{
 		if ((copy_buf_in_line(line, buf, end_of_line, len) != 1)
-		|| ((len = read(fd, buf, BUFF_SIZE)) < BUFF_SIZE))
+		|| ((len = read(fd, buf, BUFFER_SIZE)) < BUFFER_SIZE))
 			return (stop_read(line, buf, end_of_line, len));
 	}
 	return (copy_buf_in_line(line, buf, end_of_line, len));
@@ -60,7 +60,7 @@ int		copy_buf_in_line(char **line, char *buf, int end_of_line, int len)
 	if (buf[0] == '\n')
 		len = 0;
 	*line = ft_strjoin_max_free_s1(*line, buf, len);
-	buf = ft_strncpy(buf, buf + len + 1, BUFF_SIZE);
+	buf = ft_strncpy(buf, buf + len + 1, BUFFER_SIZE);
 	if (*line == NULL)
 		return (-1);
 	return (1);

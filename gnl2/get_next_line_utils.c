@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 17:05:57 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/12 14:43:17 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:06:51 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ int			ft_strchr_len(const char *s, int c)
 
 char		*ft_strjoin_max_free_s1(char *s1, char const *s2, size_t s2_len)
 {
-	int		len;
-	int		i;
-	int		j;
-	char	*dest;
+	unsigned int	len;
+	unsigned int	i;
+	unsigned int	j;
+	char			*dest;
 
 	len = s2_len;
 	i = 0;

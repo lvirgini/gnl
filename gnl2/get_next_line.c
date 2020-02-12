@@ -6,21 +6,30 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:28:59 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/11 16:07:58 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/02/12 14:41:57 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 /*
-** 
+**  GNL : retourne -1 si probleme :
+**				- fd inexistant ou < 0;
+**				- BUFFER_SIZE non conforme ( < 1);
+**				- line a NULL;
+**	- tant que (\n) n'est pas trouve dans le buffer, on lit le fd.
+**	tout en copiant le buffer dans *line.
+**	- on arrete de (read) des (\n).
+**	- retourne 1 pour chaque ligne copiee.
+**	- retourne 0 des qu'il n'y a plus de ligne a renvoyer et que le fd a ete
+**	lu entierement.
 */
 
 int		get_next_line(int fd, char **line)
 {
 	static char		buf[BUFFER_SIZE + 1];
 	int				end_of_line;
-	int 			len;
+	int				len;
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1 || (read(fd, buf, 0) == -1))
 		return (-1);
@@ -28,61 +37,57 @@ int		get_next_line(int fd, char **line)
 	*line = ft_strjoin_max_free_s1(NULL, buf, 0);
 	while ((end_of_line = ft_strchr_len(buf, '\n')) < 0)
 	{
-		if ((copy_buf_in_line(line, buf, end_of_line, len) == -1)
+		if ((copy_buf_in_line(line, buf, end_of_line, len) != 1)
 		|| ((len = read(fd, buf, BUFFER_SIZE)) <= 0))
 			return (stop_read(line, buf, end_of_line, len));
 	}
-	return (stop_read(line, buf, end_of_line, len));
+	return (copy_buf_in_line(line, buf, end_of_line, len));
 }
 
 /*
-**
+** quand la fonction (read) a entierement lu le fd, ou si pb (-1)
 */
 
 int		stop_read(char **line, char *buf, int end_of_line, int len)
 {
-	if  (len == -1)
+	if (len == -1)
 	{
 		if (*line)
 		{
-			free (*line);
+			free(*line);
 			*line = NULL;
 		}
 		return (-1);
 	}
-	if (len == 0 || buf[0] == '\n')  ////len == 0 EOF a gere /!
+	else
 	{
-		*line = ft_strjoin_max_free_s1(*line, buf, 0);
-		buf = ft_strncpy(buf, buf + end_of_line + 1, BUFFER_SIZE);
-		return(0);
+		if ((end_of_line = ft_strchr_len(buf, '\n')) >= 0)
+		{
+			copy_buf_in_line(line, buf, end_of_line, len);
+			return (1);
+		}
+		return (0);
 	}
-	if ((copy_buf_in_line(line, buf, end_of_line, len)) != 0)
-		return (stop_read(line, buf, end_of_line, -1));
-	return(0);
 }
 
 /*
-**
+** Copie tout ou une partie de buf dans line.
 */
 
 int		copy_buf_in_line(char **line, char *buf, int end_of_line, int len)
 {
-	/*if (ft_strlen(buf) != BUFFER_SIZE)
-		*line = ft_strjoin_max_free_s1(*line, buf, len);
-	else if (end_of_line == -1 && len)
-		*line = ft_strjoin_max_free_s1(*line, buf, len);
-*/
-
 	if (end_of_line == -1)
 	{
-		if (len < 0)
+		if (len <= 0)
 			len = ft_strlen(buf);
 	}
 	else
 		len = end_of_line;
+	if (buf[0] == '\n')
+		len = 0;
 	*line = ft_strjoin_max_free_s1(*line, buf, len);
-	buf = ft_strncpy(buf, buf + end_of_line + 1, BUFFER_SIZE);
+	buf = ft_strncpy(buf, buf + len + 1, BUFFER_SIZE);
 	if (*line == NULL)
 		return (-1);
-	return (0);
+	return (1);
 }

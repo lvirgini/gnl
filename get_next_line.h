@@ -5,24 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/27 18:19:48 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/11 09:56:47 by lvirgini         ###   ########.fr       */
+/*   Created: 2020/02/08 13:11:27 by lvirgini          #+#    #+#             */
+/*   Updated: 2020/02/12 18:16:22 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include <stdlib.h>
-# include <unistd.h>
 
-int				get_next_line(int fd, char **line);
-char			*ft_strjoin_s1_free(char *s1, char const *s2);
-unsigned int	ft_strchr_i(const char *s, int c);
-char			*ft_strdup(const char *s);
-char			*ft_strncpy(char *dst, char *src, size_t n)
+# include <unistd.h>
+# include <stdlib.h>
+
+/*
+** GET NEXT LINE . c
+*/
+
+int			get_next_line(int fd, char **line);
+int			copy_buf_in_line(char **line, char *buf, int end_of_line, int len);
+int			stop_read(char **line, char *buf, int end_of_line, int len);
+
+/*
+** GET NEXT LINE UTILS . c
+** Attention fonctions modifiees pour GNL.
+*/
+
+int			ft_strchr_len(const char *s, int c);
+char		*ft_strjoin_max_free_s1(char *s1, char const *s2, size_t s2_len);
+char		*ft_strncpy(char *dst, char *src, size_t n);
+size_t		ft_strlen(const char *s);
 
 #endif
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE -1
+# define BUFFER_SIZE 32
 #endif

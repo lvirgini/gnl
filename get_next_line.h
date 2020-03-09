@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 13:11:27 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/02/12 18:16:22 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/03/09 11:59:04 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 */
 
 int			get_next_line(int fd, char **line);
-int			copy_buf_in_line(char **line, char *buf, int end_of_line, int len);
-int			stop_read(char **line, char *buf, int end_of_line, int len);
 
 /*
 ** GET NEXT LINE UTILS . c
